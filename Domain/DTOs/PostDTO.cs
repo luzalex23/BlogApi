@@ -1,18 +1,15 @@
-﻿using Domain.Repositories;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Entities
+namespace Domain.DTOs
 {
-    public class Post : BaseDomain
+    public class PostDTO
     {
-        public int AutorId { get; set; }
+        public int Id { get; set; }
         public string Titulo { get; set; }
         public string Conteudo { get; set; }
-
-        public virtual Autor Autor { get; set; }
     }
 }

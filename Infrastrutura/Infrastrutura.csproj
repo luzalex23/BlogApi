@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Maps\" />
-    <Folder Include="Data\" />
     <Folder Include="Repositories\" />
   </ItemGroup>
 

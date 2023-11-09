@@ -13,11 +13,11 @@ namespace Domain.Entities
         public string Nome { get;  set; }
         public string Email {  get;  set; }
         public string Password {  get;  set; }
-        public TipoUser tipo { get;  set; }
+        public TipoUser Tipo { get;  set; }
         public virtual ICollection<Post> Posts { get; set; }
         public bool CanEditPost(Post post)
         {
-            return tipo == TipoUser.Admin || (tipo == TipoUser.Autor && post.AutorId == Id);
+            return Tipo == TipoUser.Admin || (Tipo == TipoUser.Autor && post.AutorId == Id);
         }
 
         public bool CanDeletePost(Post post)

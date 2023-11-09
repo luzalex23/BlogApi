@@ -1,3 +1,6 @@
+using Infrastrutura.Repositories;
+using Infrastrutura.Repositories.InterfaceRepository;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -23,3 +26,4 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+builder.Services.AddScoped<IPostRepository, PostRepository>();

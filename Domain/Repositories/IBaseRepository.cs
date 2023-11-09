@@ -9,15 +9,15 @@ namespace Domain.Repositories
 {
     public interface IBaseRepository <TEntity> where TEntity : BaseDomain
     {
-        void Insert(TEntity obj);
+        Task Add(TEntity obj);
+        Task Update(TEntity obj);
+        Task Delete(TEntity obj);
+        Task <TEntity>GetById(int id);
+        Task<TEntity> List();
+        Task<TEntity> GetByName(string name);
 
-        void Update(TEntity obj);
 
-        void Delete(int id);
 
-        IList<TEntity> Select();
-
-        TEntity Select(int id);
     }
-    
+
 }

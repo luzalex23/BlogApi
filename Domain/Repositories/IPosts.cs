@@ -1,4 +1,5 @@
 ﻿using Domain.DTOs;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +8,10 @@ using System.Threading.Tasks;
 
 namespace Domain.Repositories
 {
-    public interface IPosts
+    public interface IPosts:IBaseRepository<Post>
     {
-        List<PostDTO> GetPagination(int pageNumber, int pageQuantity);
+        Task<List<Post>> GetAllPostsAsync();
+        Task <List<Post>> GetPostsByAuthor(int autorId);
 
     }
 }

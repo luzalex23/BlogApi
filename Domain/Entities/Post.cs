@@ -10,9 +10,14 @@ namespace Domain.Entities
     public class Post : BaseDomain
     {
         public int AutorId { get; set; }
+        public  Usuario Autor {  get; set; }
         public string Titulo { get; set; }
         public string Conteudo { get; set; }
+        public string? ImagemPost { get; set;}
+        public bool CanBeEditedOrDeletedBy(Usuario user)
+        {
+            return user.CanEditPost(this);
+        }
 
-        public virtual Autor Autor { get; set; }
     }
 }

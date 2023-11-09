@@ -20,17 +20,17 @@ namespace Domain.Servicos
 
         public async Task AddUser(Usuario usuario)
         {
-            if(usuario.tipo == TipoUser.Admin)
+            if(usuario.Tipo == TipoUser.Admin)
             {           
-                usuario.tipo = TipoUser.Admin;
+                usuario.Tipo = TipoUser.Admin;
                 usuario.Email = usuario.Email;
                 usuario.Nome= usuario.Nome;
                 await _usuario.Add(usuario);
                 
             }
-            else if(usuario.tipo == TipoUser.Autor)
+            else if(usuario.Tipo == TipoUser.Autor)
             {
-                usuario.tipo = TipoUser.Autor;
+                usuario.Tipo = TipoUser.Autor;
                 usuario.Email = usuario.Email;
                 usuario.Nome = usuario.Nome;
                 await _usuario.Add(usuario);
@@ -42,7 +42,7 @@ namespace Domain.Servicos
 
         public async Task DeleteUser(Usuario usuario)
         {
-            if(usuario.tipo == TipoUser.Admin)
+            if(usuario.Tipo == TipoUser.Admin)
             {
                 await _usuario.Delete(usuario);
             }
@@ -55,10 +55,10 @@ namespace Domain.Servicos
 
         public async Task UpdateUser(Usuario usuario)
         {
-            if(usuario.tipo == TipoUser.Admin)
+            if(usuario.Tipo == TipoUser.Admin)
             {
                 // Administradores podem editar qualquer usuário.
-                usuario.tipo = usuario.tipo;
+                usuario.Tipo = usuario.Tipo;
                 usuario.Email = usuario.Email;
                 usuario.Nome = usuario.Nome;
                 await _usuario.Update(usuario);

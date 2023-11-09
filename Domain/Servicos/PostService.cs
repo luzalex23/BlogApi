@@ -21,7 +21,7 @@ namespace Domain.Servicos
 
         public async Task AddPost(Usuario usuario, Post post)
         {
-            if(usuario.tipo == TipoUser.Autor)
+            if(usuario.Tipo == TipoUser.Autor)
             {
                 await _posts.Add(post);
             }
@@ -45,7 +45,7 @@ namespace Domain.Servicos
 
         public async Task DeletePost(Post post, Usuario usuario)
         {
-            if(usuario.tipo == TipoUser.Admin || usuario.Id == post.AutorId)
+            if(usuario.Tipo == TipoUser.Admin || usuario.Id == post.AutorId)
             {
                 await _posts.Delete(post);
             }

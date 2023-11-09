@@ -1,32 +1,35 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Infrastrutura.Data;
 using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
-namespace Infrastrutura.Data
+public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
 {
-    /*Classe que permite ultilizar a mesma string de conexão em outros projetos*/
-
-    public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
+    public AppDbContext CreateDbContext(string[] args)
     {
-        public AppDbContext CreateDbContext(string[] args)
+        var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+
+        // Verifica se o ambiente está definido; se não, define como Development por padrão
+        if (string.IsNullOrEmpty(environmentName))
         {
-            var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-            var fileName = Directory.GetCurrentDirectory() + $"/../BlogApi/appsettings.{environmentName}.json";
-            var configuration = new ConfigurationBuilder().AddJsonFile(fileName).Build();
-            var connectionString = configuration.GetConnectionString("App");
-
-            var builder = new DbContextOptionsBuilder<AppDbContext>();
-            builder.UseNpgsql(connectionString);
-
-            return new AppDbContext(builder.Options);
-
-
+            environmentName = "Development";
         }
 
+        var fileName = Directory.GetCurrentDirectory() + $"/../BlogApi/appsettings.{environmentName}.json";
+        var configuration = new ConfigurationBuilder().AddJsonFile(fileName).Build();
+        var connectionString = configuration.GetConnectionString("App");
+
+        var builder = new DbContextOptionsBuilder<AppDbContext>();
+        builder.ConfigureWarnings(warnings => warnings.Throw(RelationalEventId.QueryPossibleUnintendedUseOfEqualsWarning));
+
+        builder.UseNpgsql(connectionString, options =>
+        {
+            options.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
+            options.MigrationsAssembly("Infrastrutura.Data");
+            options.MigrationsHistoryTable("__EFMigrationsHistory");
+        });
+
+        return new AppDbContext(builder.Options);
     }
 }

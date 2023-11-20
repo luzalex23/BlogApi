@@ -12,7 +12,6 @@ namespace Infrastrutura.Repositories.InterfaceRepository
         void addUser(Usuario usuario);
         void removeUser(Usuario usuario);
         void upadateUser(Usuario usuario);
-        Usuario GetUserId(int userId);
-        Usuario GetUserName(string userName);
+        List<Usuario> GetUserName(string userName);
     }
 }

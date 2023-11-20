@@ -16,7 +16,7 @@ namespace Infrastrutura.Repositories
         private readonly AppDbContext _context;
         public UserRepository(AppDbContext context)
         {
-            _context = context;
+            _context = context ?? throw new ArgumentNullException(nameof(context));
         }
         public void addUser(Usuario usuario)
         {
@@ -24,16 +24,9 @@ namespace Infrastrutura.Repositories
             _context.SaveChanges();
         }
 
-        public Usuario GetUserId(int userId)
+        public List<Usuario> GetUserName(string userName)
         {
-            return _context.Usuarios.Find(userId);
-         
-
-        }
-
-        public Usuario GetUserName(string userName)
-        {
-            return _context.Usuarios.FirstOrDefault(u => u.Nome == userName);
+            return _context.Usuarios.Where(u => u.Nome == userName).ToList();
         }
 
         public void removeUser(Usuario usuario)

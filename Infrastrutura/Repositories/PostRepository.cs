@@ -32,10 +32,7 @@ namespace Infrastrutura.Repositories
             }
         }
 
-        public Post GetPostById(int postId)
-        {       
-                return _context.Postagens.Where(p => p.Id == postId).FirstOrDefault();        
-        }
+       
 
         public List<Post> GetPostsByAuthor(int autorId)
         {

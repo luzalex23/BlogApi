@@ -26,4 +26,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-builder.Services.AddScoped<IPostRepository, PostRepository>();
+builder.Services.AddTransient<IPostRepository, PostRepository>();
+builder.Services.AddTransient<IUserRepository, UserRepository>();

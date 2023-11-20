@@ -12,7 +12,6 @@ namespace Infrastrutura.Repositories.InterfaceRepository
         void AddPost(Post post);
         void UpdatePost(Post post);
         void DeletePost(int postId);
-        List<Post> GetPostById(int postId);
         List<Post> GetPostsByAuthor(int autorId);
 
 

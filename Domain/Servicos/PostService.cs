@@ -10,6 +10,27 @@ using System.Threading.Tasks;
 
 namespace Domain.Servicos
 {
+    public class UsuarioNaoAutorizadoException : Exception
+    {
+        public UsuarioNaoAutorizadoException(string message) : base(message)
+        {
+        }
+    }
+
+    public class EdicaoNaoPermitidaException : Exception
+    {
+        public EdicaoNaoPermitidaException(string message) : base(message)
+        {
+        }
+    }
+
+    public class DelecaoNaoPermitidaException : Exception
+    {
+        public DelecaoNaoPermitidaException(string message) : base(message)
+        {
+        }
+    }
+
     public class PostService : IPostService
     {
         private readonly IPosts _posts;

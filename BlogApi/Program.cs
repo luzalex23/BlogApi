@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Configuração do Entity Framework Core
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("App"));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("App"));
 });
 
 // Configuração do Logger

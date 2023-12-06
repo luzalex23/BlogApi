@@ -5,6 +5,7 @@ using Domain.Repositories.InterfaceServicos;
 using Domain.Servicos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace BlogApi.Controllers
@@ -113,15 +114,16 @@ namespace BlogApi.Controllers
 
         private Usuario ObterInformacoesUsuario()
         {
-            // Implemente a lógica para obter informações do usuário (por exemplo, do token)
-            // Retorne um objeto Usuario com as informações necessárias
-            // Exemplo: Pode usar o serviço de autenticação para obter o usuário atual
+            var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var userType = Enum.Parse<TipoUser>(User.FindFirstValue(ClaimTypes.Role));
+
             return new Usuario
             {
-                Id = 1, // Substitua pelo ID real do usuário autenticado
-                Tipo = TipoUser.Autor // Substitua pelo Tipo real do usuário autenticado
+                Id = userId,
+                Tipo = userType
             };
         }
+
 
         [HttpGet("autor/{autorId}")]
         public async Task<IActionResult> GetPostsByAuthor(int autorId)
